@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>นโยบายความเป็นส่วนตัว — คิดก่อนควัก</title>
+<style>
+  :root { --bg:#fff; --fg:#1d1d1f; --muted:#555; --rule:#ddd; --warn-bg:#fff4d6; --warn-fg:#6b4b00; --accent:#1f4f8a; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#111; --fg:#eee; --muted:#aaa; --rule:#333; --warn-bg:#3a2e0a; --warn-fg:#ffd98a; --accent:#8fb8ff; }
+  }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:16px/1.7 -apple-system, "Sukhumvit Set", "Thonburi", "Noto Sans Thai", sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:24px 16px 64px; }
+  .draft { background:var(--warn-bg); color:var(--warn-fg); border-radius:8px; padding:12px 16px; font-weight:600; }
+  h1 { font-size:1.6em; margin:24px 0 4px; }
+  h2 { font-size:1.15em; margin:28px 0 8px; color:var(--accent); }
+  .meta { color:var(--muted); font-size:.9em; margin:0 0 16px; }
+  hr { border:0; border-top:1px solid var(--rule); margin:40px 0; }
+  ul { padding-left:1.3em; }
+  .fill { background:var(--warn-bg); color:var(--warn-fg); padding:0 4px; border-radius:4px; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>นโยบายความเป็นส่วนตัว — แอป “คิดก่อนควัก – Paper First”</h1>
+<p class="meta">มีผลตั้งแต่ 27 ตุลาคม 2569 (2026-10-27) · ผู้พัฒนา Phariyawit Chaiparitte</p>
+
+<h2>สรุปสั้น ๆ</h2>
+<ul>
+  <li>เรา<strong>ไม่มีเซิร์ฟเวอร์ของเราเอง</strong> ข้อมูลที่คุณพิมพ์ไม่ได้ถูกส่งมาที่เรา</li>
+  <li>เมื่อแอปใช้ AI ข้อความที่เกี่ยวข้องจะถูกส่ง<strong>จากเครื่องของคุณตรงไปที่ Google (Gemini API) ด้วย API key ของคุณเอง</strong></li>
+  <li>API key ของคุณเก็บไว้ใน <strong>Keychain ของเครื่องนี้เท่านั้น</strong> ไม่ sync ไปเครื่องอื่น</li>
+  <li>แอปไม่มีโฆษณา ไม่มีระบบวิเคราะห์การใช้งาน (analytics) และไม่ติดตามคุณข้ามแอปหรือเว็บไซต์</li>
+</ul>
+
+<h2>1. ข้อมูลที่เก็บไว้ในเครื่องของคุณ</h2>
+<ul>
+  <li><strong>ข้อมูลโปรเจกต์:</strong> ไอเดียธุรกิจ คำตอบสัมภาษณ์ ตารางต้นทุน สูตร ประวัติการแก้ไข และรายการที่ต้องไปถาม เก็บในพื้นที่ของแอปบนเครื่องนี้</li>
+  <li><strong>ชื่อที่คุณใส่ (ไม่บังคับ):</strong> ใช้บันทึกว่าใครกรอกตัวเลขในตาราง เก็บในการตั้งค่าของแอปบนเครื่องนี้</li>
+  <li><strong>การตั้งค่า:</strong> ว่าคุณกดยอมรับข้อตกลงแล้วหรือยัง และประเภท key ที่คุณเลือก (ฟรี / เปิด billing / ไม่แน่ใจ)</li>
+  <li><strong>Gemini API key:</strong> เก็บใน iOS Keychain แบบ “เฉพาะเครื่องนี้” ไม่ sync ผ่าน iCloud และไม่ถูกส่งมาที่เรา</li>
+</ul>
+
+<h2>2. ข้อมูลที่ถูกส่งไปที่ Google</h2>
+<p>เมื่อคุณใส่ key แล้วใช้ขั้นตอนที่ใช้ AI (สัมภาษณ์ ทำตารางต้นทุน ค้นราคาจากเว็บ เขียนสูตร) แอปจะส่งข้อความต่อไปนี้ไปที่ Google Gemini API โดยตรงจากเครื่องของคุณ พร้อม key ของคุณ:</p>
+<ul>
+  <li>ไอเดียธุรกิจและคำตอบที่คุณพิมพ์</li>
+  <li>บรรทัดในตารางต้นทุนที่เกี่ยวข้อง</li>
+  <li>คำสั่ง (prompt) ที่แอปเขียนไว้ เพื่อให้ AI ตอบในรูปแบบที่แอปอ่านได้</li>
+</ul>
+<p>Google จัดการข้อมูลนี้ตามเงื่อนไขของ Google ที่คุณยอมรับตอนสร้าง key — ไม่ใช่ตามนโยบายนี้ สรุปจากเงื่อนไขฉบับปัจจุบันของ Google:</p>
+<ul>
+  <li>ถ้า key ของคุณใช้แบบ<strong>ไม่เสียเงิน</strong> Google นำข้อความที่ส่งไปและคำตอบที่ได้ไปใช้ปรับปรุงและพัฒนาผลิตภัณฑ์ของ Google ได้
+      และอาจมีคนของ Google อ่านข้อความเหล่านั้น (Google บอกว่าจะตัดออกจากบัญชีและ key ของคุณก่อน)</li>
+  <li>ถ้า<strong>เปิด billing</strong> แล้ว Google บอกว่าจะไม่นำข้อความไปปรับปรุงผลิตภัณฑ์ แต่เก็บไว้ช่วงสั้น ๆ เพื่อตรวจการใช้งานที่ผิดเงื่อนไขและตามที่กฎหมายกำหนด</li>
+</ul>
+<p>รายละเอียดอยู่ใน
+<a href="https://ai.google.dev/gemini-api/terms">Gemini API Additional Terms of Service</a> และ
+<a href="https://policies.google.com/privacy">Google Privacy Policy</a>
+แอปจึงเตือนว่า <strong>ห้ามใส่ข้อมูลส่วนตัวหรือความลับธุรกิจ</strong></p>
+<p>เราในฐานะนักพัฒนาไม่ได้รับข้อความเหล่านี้ แต่เพราะข้อความถูกส่งออกจากเครื่องไปที่ Google เพื่อให้แอปทำงาน ในหน้า App Store เราจึงประกาศว่าแอปเก็บ
+“เนื้อหาอื่นของผู้ใช้” (Other User Content) ใช้เพื่อให้แอปทำงานเท่านั้น ไม่ผูกกับตัวตนของคุณ และไม่ใช้ติดตาม</p>
+<p>ถ้าคุณใช้ “ข้อมูลตัวอย่าง” โดยไม่ใส่ key แอปจะไม่ส่งอะไรไปที่ Google เลย</p>
+
+<h2>3. ผลค้นเว็บ</h2>
+<p>เมื่อ AI ค้นราคาจากเว็บ แอปจะแสดงคำค้นแนะนำและลิงก์ที่มาจาก Google ถ้าคุณกดลิงก์ ระบบจะเปิดหน้าเว็บนั้นนอกแอป และเว็บนั้นใช้นโยบายของตัวเอง</p>
+
+<h2>4. PDF ที่คุณส่งออก</h2>
+<p>แอปสร้าง PDF บนเครื่องเมื่อคุณกดเท่านั้น คุณเป็นผู้เลือกว่าจะแชร์ไปที่ไหน แอปไม่ส่ง PDF ไปที่อื่นเอง</p>
+
+<h2>5. สิ่งที่แอปไม่ทำ</h2>
+<ul>
+  <li>ไม่มีบัญชีผู้ใช้ ไม่ต้องสมัครหรือล็อกอิน</li>
+  <li>ไม่มีโฆษณา ไม่มี analytics ไม่มี SDK ของบุคคลที่สาม</li>
+  <li>ไม่ติดตาม (tracking) ไม่ขายข้อมูล และไม่ส่งข้อมูลให้ใครนอกจาก Google ตามข้อ 2 เพื่อให้ AI ทำงาน</li>
+</ul>
+
+<h2>6. การลบข้อมูล</h2>
+<ul>
+  <li><strong>ลบ key:</strong> ไปที่หน้าตั้งค่า key แล้วกด “ลบ key…” — แนะนำให้ทำ<strong>ก่อน</strong>ลบแอป เพราะข้อมูลใน Keychain ของ iOS อาจยังอยู่แม้ลบแอปแล้ว</li>
+  <li><strong>ลบโปรเจกต์:</strong> ปัดรายการโปรเจกต์ไปทางซ้ายแล้วกด “ลบ” หรือในหน้าโปรเจกต์กดเมนู (⋯) → “ลบโปรเจกต์…”
+      แอปจะถามยืนยันก่อน เมื่อลบแล้ว ตาราง สูตร ประวัติ รายการที่ต้องไปถาม และไฟล์ของโปรเจกต์นั้นในเครื่อง (เช่นคำค้นแนะนำและ PDF ที่สร้างไว้) จะถูกลบทั้งหมดและกู้คืนไม่ได้
+      การลบโปรเจกต์ไม่ลบ Gemini key</li>
+  <li><strong>ลบทุกอย่าง:</strong> ลบแอปออกจากเครื่อง (และลบ key ในแอปก่อน ตามข้อแรก)</li>
+  <li>ข้อมูลที่เคยส่งไป Google แล้ว เราลบให้ไม่ได้ เพราะไม่ได้ผ่านเรา — ดูวิธีจัดการได้ที่เงื่อนไขของ Google</li>
+</ul>
+
+<h2>7. เมื่อแอปเพิ่มการแชร์ (เฟส 2 — ยังไม่มีในรุ่นนี้)</h2>
+<p>เราวางแผนให้แชร์โปรเจกต์กับคนอื่นผ่าน iCloud ของ Apple เมื่อถึงตอนนั้น ข้อมูลโปรเจกต์จะเก็บใน iCloud ของคุณ (ไม่ใช่เซิร์ฟเวอร์ของเรา) และคนที่คุณเชิญจะเห็นโปรเจกต์ที่แชร์
+API key จะยังอยู่เฉพาะเครื่องและไม่ถูกแชร์ เราจะแก้นโยบายนี้ก่อนเปิดใช้ฟีเจอร์นั้น</p>
+
+<h2>8. เด็ก</h2>
+<p>แอปนี้ทำมาสำหรับผู้ใหญ่ที่วางแผนธุรกิจ ไม่ได้ออกแบบมาสำหรับเด็ก</p>
+
+<h2>9. การเปลี่ยนแปลงนโยบาย</h2>
+<p>ถ้าเราแก้นโยบายนี้ เราจะเปลี่ยนวันที่ด้านบนและแจ้งในบันทึกของรุ่นใหม่</p>
+
+<h2>10. ติดต่อ</h2>
+<p>อีเมล: <a href="mailto:mr.phariyawit@gmail.com">mr.phariyawit@gmail.com</a></p>
+
+<hr>
+
+<h2 lang="en">English summary</h2>
+<div lang="en">
+<ul>
+  <li>We run <strong>no server</strong>. Nothing you type is sent to us.</li>
+  <li>When the app uses AI, the relevant text (your business idea, your answers, cost-table lines and the app's prompt) is sent
+      <strong>directly from your device to Google's Gemini API using your own API key</strong>. Google handles it under its own terms
+      (<a href="https://ai.google.dev/gemini-api/terms">Gemini API terms</a>, <a href="https://policies.google.com/privacy">Google Privacy Policy</a>);
+      under Google's current terms, with an unpaid key Google may use prompts and responses to improve its products and
+      human reviewers may read them (after Google disconnects them from your account and key); with billing on, Google
+      says it does not use them to improve its products. Do not enter personal data or business secrets.
+      We never receive this text, but because it leaves the device for Google so the app can work, the App Store label
+      declares it as Other User Content, used for App Functionality only, not linked to you, not used for tracking.</li>
+  <li>Your API key is stored in the iOS Keychain <strong>on this device only</strong> and never syncs.</li>
+  <li>Projects, your optional name and settings are stored on your device. Sample mode (no key) sends nothing to Google.</li>
+  <li>No accounts, no ads, no analytics, no third-party SDKs, no tracking.</li>
+  <li>Delete a project by swiping it left in the list, or from the project page menu; the app asks first, and deletion
+      cannot be undone. It removes the project's table, formula, history, to-do list and its local files; it does not delete the key.</li>
+  <li>Delete the key in the app before deleting the app (Keychain items can survive app deletion). Deleting the app removes all project data.</li>
+  <li>Planned phase 2: sharing through your own iCloud. This policy will be updated before that ships.</li>
+  <li>Developer: Phariyawit Chaiparitte · Contact: <a href="mailto:mr.phariyawit@gmail.com">mr.phariyawit@gmail.com</a></li>
+</ul>
+</div>
+
+</main>
+</body>
+</html>

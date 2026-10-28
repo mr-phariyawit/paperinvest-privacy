@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ช่วยเหลือ — คิดก่อนควัก</title>
+<style>
+  :root { --bg:#fff; --fg:#1d1d1f; --muted:#555; --rule:#ddd; --box:#f2f5fa; --accent:#1f4f8a; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#111; --fg:#eee; --muted:#aaa; --rule:#333; --box:#1b2230; --accent:#8fb8ff; }
+  }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:16px/1.7 -apple-system, "Sukhumvit Set", "Thonburi", "Noto Sans Thai", sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:1.6em; margin:24px 0 4px; }
+  h2 { font-size:1.15em; margin:28px 0 8px; color:var(--accent); }
+  .meta { color:var(--muted); font-size:.9em; margin:0 0 16px; }
+  .contact { background:var(--box); border-radius:8px; padding:12px 16px; }
+  a { color:var(--accent); }
+  hr { border:0; border-top:1px solid var(--rule); margin:40px 0; }
+  ul { padding-left:1.3em; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>ช่วยเหลือ — แอป “คิดก่อนควัก – Paper First”</h1>
+<p class="meta">ผู้พัฒนา Phariyawit Chaiparitte · อัปเดต 27 ตุลาคม 2569 (2026-10-27)</p>
+
+<div class="contact">
+  <strong>ติดต่อผู้พัฒนา:</strong> <a href="mailto:mr.phariyawit@gmail.com">mr.phariyawit@gmail.com</a><br>
+  เล่าปัญหาที่เจอ รุ่นของแอป และรุ่น iOS — <strong>อย่าส่ง API key หรือข้อมูลส่วนตัวมาในอีเมล</strong>
+</div>
+
+<h2>ต้องมีอะไรก่อนใช้ส่วนที่เป็น AI?</h2>
+<p>ต้องมี <strong>Gemini API key ของคุณเอง</strong> สร้างได้ที่ Google AI Studio แล้ววางในหน้า “ตั้งค่า key” ของแอป
+ค่าใช้จ่ายและโควตาเป็นไปตามบัญชี Google ของคุณ แอปไม่เก็บเงินและไม่มีบริการ AI ของตัวเอง</p>
+
+<h2>ยังไม่มี key ลองใช้ได้ไหม?</h2>
+<p>ได้ ที่หน้าตั้งค่า key กด “ข้ามไปก่อน — ใช้ข้อมูลตัวอย่าง” แอปจะใช้โปรเจกต์ตัวอย่าง (บูธเนื้อโคขุน) ทุกขั้น
+โดยไม่เรียก Gemini ทุกหน้าที่ใช้ข้อมูลตัวอย่างมีป้ายสีส้ม “โหมดตัวอย่าง” ใส่ key เมื่อไรก็ใช้ AI จริงได้</p>
+
+<h2>ข้อมูลของฉันอยู่ที่ไหน?</h2>
+<ul>
+  <li>โปรเจกต์ (ไอเดีย คำตอบ ตารางต้นทุน สูตร ประวัติ) <strong>เก็บในเครื่องของคุณ</strong> แอปไม่มีเซิร์ฟเวอร์และไม่มีบัญชีผู้ใช้</li>
+  <li>API key เก็บใน Keychain ของเครื่องนี้เท่านั้น</li>
+  <li>เมื่อใช้ AI ข้อความที่เกี่ยวข้องจะถูกส่ง<strong>จากเครื่องตรงไปที่ Google</strong> ด้วย key ของคุณ
+      ถ้าใช้ key แบบไม่เสียเงิน Google อาจนำข้อความไปปรับปรุงบริการได้ จึงไม่ควรใส่ข้อมูลส่วนตัวหรือความลับธุรกิจ</li>
+</ul>
+<p>รายละเอียดทั้งหมดอยู่ใน<a href="./">นโยบายความเป็นส่วนตัว</a></p>
+
+<h2>ลบโปรเจกต์ได้อย่างไร?</h2>
+<ul>
+  <li>ในหน้ารายการโปรเจกต์ ปัดโปรเจกต์ไปทางซ้ายแล้วกด “ลบ” หรือในหน้าโปรเจกต์กดเมนู (⋯) → “ลบโปรเจกต์…”</li>
+  <li>แอปจะถามยืนยันก่อน ลบแล้วกู้คืนไม่ได้ และ key จะไม่ถูกลบไปด้วย</li>
+  <li>ลบ key: หน้าตั้งค่า key → “ลบ key…” ควรทำก่อนลบแอป เพราะข้อมูลใน Keychain อาจยังอยู่แม้ลบแอปแล้ว</li>
+</ul>
+
+<h2>ผลที่แอปคำนวณเชื่อถือได้แค่ไหน?</h2>
+<p>ผลทั้งหมดเป็น<strong>ค่าประมาณเพื่อช่วยวางแผน</strong> ไม่ใช่คำแนะนำการลงทุน และไม่รับประกันกำไร
+ตัวเลขจาก AI ผิดได้ แอปจึงติดป้ายทุกตัวเลขว่ามาจากไหน (คุณใส่เอง / AI ประมาณ / AI ค้นเจอ)
+และมีหน้า “ต้องไปถามอะไร” ให้ไปเช็กกับคนจริงแล้วกลับมาใส่ตัวเลขจริง</p>
+
+<hr>
+
+<h2 lang="en">English</h2>
+<ul lang="en">
+  <li>Contact: <a href="mailto:mr.phariyawit@gmail.com">mr.phariyawit@gmail.com</a> (never send your API key).</li>
+  <li>The AI features need your own Gemini API key (from Google AI Studio); usage and cost follow your Google account.</li>
+  <li>No key yet? Tap “ข้ามไปก่อน — ใช้ข้อมูลตัวอย่าง” to try every step with a sample project, with no AI calls.</li>
+  <li>Projects stay on your device. When you use AI, the relevant text goes from your device straight to Google with your key.
+      See the <a href="./">privacy policy</a>.</li>
+  <li>Delete a project: swipe left on it in the list and tap “ลบ”, or open it and use ⋯ → “ลบโปรเจกต์…”.</li>
+  <li>Results are estimates for planning, not investment advice.</li>
+</ul>
+
+</main>
+</body>
+</html>
